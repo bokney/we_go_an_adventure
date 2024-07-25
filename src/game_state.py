@@ -59,12 +59,15 @@ will run next
 
 """
 
+from types import FunctionType
+
 class GameState:
 
     def __init__(self,
-                 init_func = None,
-                 loop_func = None,
-                 exit_func = None):
+                 init_func: FunctionType | None = None,
+                 loop_func: FunctionType | None = None,
+                 exit_func: FunctionType | None = None
+                 ) -> None:
         self._init_func = init_func
         self._loop_func = loop_func
         self._exit_func = exit_func
@@ -72,24 +75,24 @@ class GameState:
 
 class GameStateDirector:
 
-    def __init__(self, initial_state: GameState):  
+    def __init__(self, initial_state: GameState) -> None:  
         self._state_step = 0
         self._state_counter = 0
         self._current_state = initial_state
 
     @property
-    def current_state(self):
+    def current_state(self) -> GameState:
         return self._current_state
 
     @property
-    def state_step(self):
+    def state_step(self) -> int:
         return self._state_step
     
     @property
-    def state_counter(self):
+    def state_counter(self) -> int:
         return self._state_counter
 
-    def run(self):
+    def run(self) -> None:
         if self.state_step == 0:
             if self._current_state._init_func != None:
                     self._current_state._init_func()
