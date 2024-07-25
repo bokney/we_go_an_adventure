@@ -72,10 +72,10 @@ class GameState:
 
 class GameStateDirector:
 
-    def __init__(self, state: GameState):  
+    def __init__(self, initial_state: GameState):  
         self._state_step = 0
         self._state_counter = 0
-        self._current_state = state
+        self._current_state = initial_state
 
     @property
     def current_state(self):
