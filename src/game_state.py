@@ -93,19 +93,22 @@ class GameStateDirector:
         return self._state_counter
 
     def run(self) -> None:
-        if self.state_step == 0:
+        if self._state_step == 0:
             if self._current_state._init_func != None:
                     self._current_state._init_func()
                     self._state_step += 1
         if self._current_state._loop_func != None:
                     move_ahead = self._current_state._loop_func()
-                    if (move_ahead != None):
+                    if (move_ahead != 0):
                         self._state_step += 1
-        if self.state_step == 2:
+        if self._state_step == 2:
              if self._current_state._exit_func != None:
                     next_state = self._current_state._exit_func()
                     if (next_state == None):
                         quit()
                     self._current_state = next_state
                     self._state_step = 0
+                    self._state_counter = 0
+        else:
+             self._state_counter += 1
 
